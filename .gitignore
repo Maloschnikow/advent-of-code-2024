@@ -1,7 +1,12 @@
 .vscode
+# Ignore everything
+*
 
-**/
-**/*.in
+# Allow .hpp .cpp .nix files
+!*.hpp
+!*.cpp
+!*.nix
 
-! **/*.*
-! *.*
+# Allow directories (to ensure .hpp and .cpp in subdirectories are included)
+!*/
+

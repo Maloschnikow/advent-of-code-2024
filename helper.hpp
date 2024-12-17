@@ -7,6 +7,65 @@
 
 namespace helper {
 
+    struct Coord {
+        long x;
+        long y;
+
+        Coord() { x, y = -1, -1; }
+        Coord(long x, long y) : x(x), y(y) {}
+
+        Coord getUp(int steps=1) const {
+            return Coord(x-1,y  );
+        }
+        Coord getRight(int steps=1) const {
+            return Coord(x  ,y+1);
+        }
+        Coord getDown(int steps=1) const {
+            return Coord(x+1,y);
+        }
+        Coord getLeft(int steps=1) const {
+            return Coord(x  ,y-1);
+        }
+
+        bool inBoundaries(long xHighBoundary, long yHighBoundary, long xLowBoundary=0, long yLowBoundary=0) {
+            return !(x < xLowBoundary || x > xHighBoundary || y < yLowBoundary || y > yHighBoundary);
+        }
+
+        friend std::ostream& operator<<(std::ostream &os, const Coord &coord) {
+            return os << "(" << coord.x << "," << coord.y << ")";
+        }
+
+        bool operator<(const Coord& other) const {
+            if(x < other.x) { return true; }
+            else if ( x == other.x && y < other.y ) { return true; }
+            return false;
+        }
+
+        Coord operator+(const Coord &other) const {
+            return Coord(x+other.x, y+other.y);
+        }
+
+        Coord operator-(const Coord &other) const {
+            return Coord(x-other.x, y-other.y);
+        }
+
+        Coord operator*(const long &s) const {
+            return Coord(x*s, y*s);
+        }
+
+        friend Coord operator*(const long &s, const Coord &coord) {
+            return Coord(coord.x*s, coord.y*s);
+        }
+
+        bool operator==(const Coord &other) const {
+            return x == other.x && y == other.y;
+        }
+
+        bool operator!=(const Coord &other) const {
+            return !(*this == other);
+        }
+    };
+
     //for debugging
     template <typename T>
     void printSet(std::set<T> s) {
